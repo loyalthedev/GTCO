@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTCO Food & Drink</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #797878;
+      }
+      h2 {
+        width: fit-content;
+      }
+      button {
+        background-color: rgb(82, 189, 255);
+        padding: 8px 16px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+      }
+      .text-section {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 16px;
+        align-items: center;
+      }
+      .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .video-section {
+        width: 300px;
+        min-height: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+      }
+      .video-fullscreen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none; /* Hidden initially */
+      }
+      .form-section {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 280px;
+      }
+      .form-section input[type="text"],
+      .form-section input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .form-section label {
+        font-size: 14px;
+      }
+      .form-section button {
+        margin-top: 10px;
+        padding: 8px;
+        width: 48%;
+      }
+      .form-section .buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+      .form-section .checkbox {
+        display: flex;
+        align-items: center;
+      }
+      .form-section .checkbox input {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Video Section -->
+      <div class="video-section">
+        <div class="text-section" id="text-section">
+          <h2>GTCO FOOD & DRINK</h2>
+          <p>Please enter your details</p>
+          <button id="enter-button">Enter Details</button>
+        </div>
+        <video
+          id="intro-video"
+          class="video-fullscreen"
+          width="75%"
+          autoplay
+          muted
+          controls
+        >
+          <source src="flow.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
+        <!-- Form Section -->
+        <div class="form-section" id="form-section">
+          <h2>GTCO FOOD & DRINK</h2>
+          <p>Enter your information</p>
+          <input type="text" placeholder="First Name *" required />
+          <input type="text" placeholder="Last Name *" required />
+          <input type="email" placeholder="Email *" required />
+          <input type="text" placeholder="Contact Number *" required />
+          <div class="checkbox">
+            <input type="checkbox" id="terms" required />
+            <label for="terms">Accept <a href="#">Terms & Conditions</a></label>
+          </div>
+          <div class="buttons">
+            <button id="cancel-button" style="background-color: #ccc">
+              Cancel
+            </button>
+            <button style="background-color: rgb(82, 189, 255); color: white">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Grab elements
+      const video = document.getElementById("intro-video");
+      const textSection = document.getElementById("text-section");
+      const formSection = document.getElementById("form-section");
+      const enterButton = document.getElementById("enter-button");
+      const cancelButton = document.getElementById("cancel-button");
+
+      // Initially show text section, then delay the video load by 1 second
+      setTimeout(() => {
+        textSection.style.display = "none"; // Hide text section
+        video.style.display = "block"; // Show video after 1 second delay
+        video.play(); // Ensure video starts playing
+      }, 1000);
+
+      // When the video ends, return to the text section
+      video.onended = () => {
+        video.style.display = "none"; // Hide video after playing
+        textSection.style.display = "flex"; // Show the text and button again
+      };
+
+      // Show the form when "Enter Details" button is clicked
+      enterButton.onclick = () => {
+        textSection.style.display = "none";
+        formSection.style.display = "flex";
+      };
+
+      // Hide the form and go back to text section when "Cancel" button is clicked
+      cancelButton.onclick = () => {
+        formSection.style.display = "none";
+        textSection.style.display = "flex";
+      };
+    </script>
+  </body>
+</html>
